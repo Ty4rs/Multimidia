@@ -1,0 +1,17 @@
+## Visual Studio Temp and Cache Files
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+b囊/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## OS files
+Thumbs.db
+Desktop.ini
+
