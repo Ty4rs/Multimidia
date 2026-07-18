@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Multimídia</title>
+    <style>
+        body {
+            background: #111;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: sans-serif;
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 24px;
+            background: #E50914;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #log-sistema {
+            margin-top: 20px;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Central de Controle</h1>
+    <!-- Quando clica, manda um comando real para o Linux -->
+    <button onclick="acionarSistema('uptime')">Ver Tempo de Atividade da Placa</button>
+
+    <div id="log-sistema">Aguardando sistema...</div>
+
+    <script>
+        async function acionarSistema(comandoNatv) {
+            document.getElementById('log-sistema').innerText = "Processando...";
+
+            // Faz a chamada para o C# rodando em background
+            const resposta = await fetch('/api/executar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ comando: comandoNatv })
+            });
+
+            const dados = await resposta.json();
+            document.getElementById('log-sistema').innerText = dados.retorno;
+        }
+    </script>
+
+</body>
+</html>
